@@ -11,13 +11,27 @@
  * @package    Novaramedia_Audio_Tool
  * @subpackage Novaramedia_Audio_Tool/admin/partials
  */
+
+$recent_posts = get_posts(array(
+  'posts_per_page' => -1,
+  'category_name' => 'audio',
+  'post_status'    => array('draft', 'publish')
+));
+
 ?>
 <h1>Novara Audio Tool</h1>
 
 <section>
   <h3>Choose Audio post source</h3>
 
-  *** here goes a form input to select the data source ***
+  <select id="latest-select">
+    <?php
+      foreach($recent_posts as $recent_post) {
+        echo '<option value="' . $recent_post->ID . '">' . $recent_post->post_title . '</option>';
+      }
+    ?>
+  </select>
+  <button id="get-data" class="button button-primary">Get Data</button>
 </section>
 
 <section>

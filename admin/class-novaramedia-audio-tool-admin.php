@@ -100,4 +100,21 @@ class Novaramedia_Audio_Tool_Admin {
 
 	}
 
+  public function add_admin_menu() {
+
+    // Add top level menu
+    add_menu_page(
+      null,
+      'Audio Tool',
+      'manage_options',
+      'novaramedia-audio-tool',
+      array( $this, 'audio_settings_page' )
+    );
+
+  }
+
+  public function audio_settings_page() {
+    include_once( plugin_dir_path( __FILE__ ) . 'partials/novaramedia-audio-tool-admin-display.php' );
+  }
+
 }

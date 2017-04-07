@@ -73,6 +73,11 @@
     useData: function(response, status) {
       var _this = this;
 
+      if (response.type === 'error') {
+        alert(response.error);
+        console.log('response', response);
+      }
+
       _this.setOutputData(response.data);
       _this.showOutput();
     },

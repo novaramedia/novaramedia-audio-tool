@@ -129,17 +129,15 @@ class Novaramedia_Audio_Tool_Admin {
 
     if ( !empty( $_GET['postId'] ) ) {
       $postId = $_GET['postId'];
-      $post = get_posts( array(
-        'p' => $postId,
-      ) );
+      $post = get_post($postId);
 
       if ( !empty( $post ) ) {
         $response = array(
           'type' => 'success',
-          'data' => $post[0]
+          'data' => $post
         );
 
-        $meta = get_post_meta($post[0]->ID);
+        $meta = get_post_meta($post->ID);
 
         if (!empty($meta['_cmb_short_desc'][0])) {
           $response['data']->meta_description = $meta['_cmb_short_desc'][0];
@@ -149,16 +147,16 @@ class Novaramedia_Audio_Tool_Admin {
           $response['data']->meta_soundcloud = $meta['_cmb_sc'][0];
         }
 
-        $response['data']->post_tags = wp_get_post_tags( $post[0]->ID, array( 'fields' => 'names' ) );
+        $response['data']->post_tags = wp_get_post_tags( $post->ID, array( 'fields' => 'names' ) );
 
-        $categories = wp_get_post_categories($post[0]->ID, array('fields' => 'names'));
+        $categories = wp_get_post_categories($post->ID, array('fields' => 'names'));
         $show_name_array = array_values(array_diff($categories, ['Audio']));
 
         $response['data']->post_categories = $categories;
         $response['data']->show_name = $show_name_array[0];
 
-        $response['data']->post_image = wp_get_attachment_url( get_post_thumbnail_id( $post[0]->ID, 'full' ) );
-        $response['data']->post_permalink = get_permalink($post[0]->ID);
+        $response['data']->post_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID, 'full'));
+        $response['data']->post_permalink = get_permalink($post->ID);
 
       } else {
         $response = array(

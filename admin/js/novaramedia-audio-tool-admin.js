@@ -64,22 +64,16 @@
         type: 'get',
         data: data,
         success: function(response, status) {
-          return _this.useData(response, status);
+          if (response.type === 'error') {
+            alert(response.error);
+            console.log('response', response);
+          } else {
+            _this.setOutputData(response.data);
+            _this.showOutput();
+          }
         }
       });
 
-    },
-
-    useData: function(response, status) {
-      var _this = this;
-
-      if (response.type === 'error') {
-        alert(response.error);
-        console.log('response', response);
-      }
-
-      _this.setOutputData(response.data);
-      _this.showOutput();
     },
 
     setOutputData: function(data) {

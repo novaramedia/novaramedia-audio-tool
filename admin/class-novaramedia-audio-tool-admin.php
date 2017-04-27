@@ -96,7 +96,14 @@ class Novaramedia_Audio_Tool_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/novaramedia-audio-tool-admin.js', array( 'jquery' ), $this->version, false );
+		wp_register_script( $this->plugin_name . '_audiotool_script', plugin_dir_url( __FILE__ ) . 'js/novaramedia-audio-tool-admin.js', array( 'jquery' ), $this->version, false );
+
+    wp_localize_script( $this->plugin_name . '_audiotool_script', 'AudioToolVars', array(
+      'ajaxurl' => admin_url( 'admin-ajax.php' ),
+      'pluginurl' => plugin_dir_url(__FILE__) . '../'
+    ));
+
+    wp_enqueue_script( $this->plugin_name . '_audiotool_script' );
 
 	}
 
@@ -115,6 +122,58 @@ class Novaramedia_Audio_Tool_Admin {
 
   public function audio_settings_page() {
     include_once( plugin_dir_path( __FILE__ ) . 'partials/novaramedia-audio-tool-admin-display.php' );
+  }
+
+  public function ajax_get_audio_post_data() {
+    $response = [];
+
+    if ( !empty( $_GET['postId'] ) ) {
+      $postId = $_GET['postId'];
+      $post = get_post($postId);
+
+      if ( !empty( $post ) ) {
+        $response = array(
+          'type' => 'success',
+          'data' => $post
+        );
+
+        $meta = get_post_meta($post->ID);
+
+        if (!empty($meta['_cmb_short_desc'][0])) {
+          $response['data']->meta_description = $meta['_cmb_short_desc'][0];
+        }
+
+        if (!empty($meta['_cmb_sc'][0])) {
+          $response['data']->meta_soundcloud = $meta['_cmb_sc'][0];
+        }
+
+        $response['data']->post_tags = wp_get_post_tags( $post->ID, array( 'fields' => 'names' ) );
+
+        $categories = wp_get_post_categories($post->ID, array('fields' => 'names'));
+        $show_name_array = array_values(array_diff($categories, ['Audio']));
+
+        $response['data']->post_categories = $categories;
+        $response['data']->show_name = $show_name_array[0];
+
+        $response['data']->post_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID, 'full'));
+        $response['data']->post_permalink = get_permalink($post->ID);
+
+      } else {
+        $response = array(
+          'type' => 'error',
+          'error' => 'Post not found'
+        );
+      }
+    } else {
+      $response = array(
+        'type' => 'error',
+        'error' => 'Parameter ID missing'
+      );
+    }
+
+    header('Content-Type: application/json');
+    print json_encode($response);
+    wp_die();
   }
 
 }

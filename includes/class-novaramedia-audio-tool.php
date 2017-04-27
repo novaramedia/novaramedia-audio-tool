@@ -148,6 +148,7 @@ class Novaramedia_Audio_Tool {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
     $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
+    $this->loader->add_action( 'wp_ajax_get_audio_post_data', $plugin_admin, 'ajax_get_audio_post_data' );
 	}
 
 	/**

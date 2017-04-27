@@ -22,7 +22,7 @@
 
   // AudioTool object
   var AudioTool = {
-    vars: AudioToolVars,
+    params: AudioToolVars,
 
     init: function() {
        var _this = this;
@@ -60,7 +60,7 @@
       };
 
       $.ajax({
-        url: _this.vars.ajaxurl,
+        url: _this.params.ajaxurl,
         type: 'get',
         data: data,
         success: function(response, status) {

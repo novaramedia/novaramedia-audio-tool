@@ -113,7 +113,7 @@ class Novaramedia_Audio_Tool_Admin {
     add_menu_page(
       null,
       'Audio Tool',
-      'manage_options',
+      'edit_posts',
       'novaramedia-audio-tool',
       array( $this, 'audio_settings_page' )
     );

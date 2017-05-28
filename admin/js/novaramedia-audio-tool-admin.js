@@ -133,12 +133,12 @@
 
     drawArtwork: function(url) {
       var _this = this;
+      // canvas is 1000 x 1000 in the markup
+      var size = _this.canvas.width;
 
       // reset
-      _this.ctx.clearRect(0, 0, _this.canvas.width, _this.canvas.height);
+      _this.ctx.clearRect(0, 0, size, size);
 
-      // canvas is 1000 x 1000 in the markup
-      var size = 1000;
       var img = new Image();
 
       img.onload = function() {
@@ -181,7 +181,7 @@
       var logo = new Image();
 
       logo.onload = function() {
-        _this.ctx.drawImage(logo, 0, 0, 1000, 1000);
+        _this.ctx.drawImage(logo, 100, 100, 1000, 1000);
         _this.updateArtworkProxyImage();
       };
 

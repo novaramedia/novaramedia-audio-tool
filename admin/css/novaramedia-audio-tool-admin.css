@@ -3,6 +3,10 @@
  * included in this file.
  */
 
+.output {
+  display: none
+}
+
 #artwork-canvas-export {
   width: 400px;
   max-width: 90%;

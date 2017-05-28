@@ -77,6 +77,7 @@
     },
 
     setOutputData: function(data) {
+      var _this = this;
       var outputTitle = data.post_title;
 
       if (data.show_name) {
@@ -86,6 +87,14 @@
       $('#output-title').text(outputTitle);
 
       $('#output-filename').text(outputTitle.replace(/[^a-zA-Z 0-9]+/g,'').replace(/[ ]+/g, '_').toLowerCase());
+
+      var date = new Date();
+
+      console.log(date);
+      var archiveYear = date.getFullYear() + '';
+      var archiveDate = archiveYear.substring(2) + _this.addLeadingZero(date.getMonth()) + _this.addLeadingZero(date.getDate());
+
+      $('#output-archive-filename').text(archiveDate + '_' + outputTitle.replace(/[^a-zA-Z 0-9]+/g,'').replace(/[ ]+/g, '_').toLowerCase());
 
       $('#output-permalink').text(data.post_permalink);
 
@@ -120,6 +129,16 @@
 
       $('#output-archive-org-link').attr('href', encodeURI(archiveUrl));
 
+    },
+
+    addLeadingZero: function(number) {
+      number = number + '';
+
+      if (number.length === 1) {
+        number = '0' + number;
+      }
+
+      return number;
     },
 
   };

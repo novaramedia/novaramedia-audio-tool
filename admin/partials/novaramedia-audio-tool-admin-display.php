@@ -88,10 +88,8 @@ $recent_posts = get_posts(array(
 
 <section>
   <h3>Artwork</h3>
-
-  <div class="output">
-    *** here goes a replication of the podcast tool's artwork generator ***
-  </div>
+  <canvas id="artwork-canvas" width="1000" height="1000" style="display: none;"></canvas>
+  <img id="artwork-canvas-export" />
 </section>
 
 <hr>

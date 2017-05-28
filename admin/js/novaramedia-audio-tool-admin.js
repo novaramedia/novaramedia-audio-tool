@@ -25,7 +25,11 @@
     params: AudioToolVars,
 
     init: function() {
-       var _this = this;
+      var _this = this;
+
+      _this.canvas = document.getElementById('artwork-canvas');
+      _this.canvasExport = document.getElementById('artwork-canvas-export');
+      _this.ctx = _this.canvas.getContext('2d');
 
        _this.bind();
 
@@ -77,6 +81,7 @@
     },
 
     setOutputData: function(data) {
+      var _this = this;
       var outputTitle = data.post_title;
 
       if (data.show_name) {
@@ -120,6 +125,74 @@
 
       $('#output-archive-org-link').attr('href', encodeURI(archiveUrl));
 
+      // draw artwork
+
+      _this.drawArtwork(data.post_image);
+
+    },
+
+    drawArtwork: function(url) {
+      var _this = this;
+
+      // reset
+      _this.ctx.clearRect(0, 0, _this.canvas.width, _this.canvas.height);
+
+      // canvas is 1000 x 1000 in the markup
+      var size = 1000;
+      var img = new Image();
+
+      img.onload = function() {
+        var height = img.naturalHeight;
+        var width = img.naturalWidth;
+
+        if (height === width) {
+          // handle square image
+          var multiplier = size / height;
+
+          _this.ctx.drawImage(img, 0, 0, (width * multiplier), (height * multiplier));
+
+        } else if (height > width) {
+          // handle portrait
+          var multiplier = size / width;
+          var offset = (((height * multiplier)-size) / 2);
+
+          _this.ctx.drawImage(img, 0, -offset, (width * multiplier), (height * multiplier));
+
+        } else {
+          // handle landscape
+          var multiplier = size / height;
+          var offset = (((width * multiplier)-size) / 2);
+
+          _this.ctx.drawImage(img, -offset, 0, (width * multiplier), (height * multiplier));
+
+        }
+
+        _this.drawLogo();
+        _this.updateArtworkProxyImage();
+
+      };
+
+      img.src = url;
+
+    },
+
+    drawLogo: function() {
+      var _this = this;
+      var logo = new Image();
+
+      logo.onload = function() {
+        _this.ctx.drawImage(logo, 0, 0, 1000, 1000);
+        _this.updateArtworkProxyImage();
+      };
+
+      logo.src = AudioToolVars.pluginurl + '/assets/images/NM-Square-White-1000.png';
+    },
+
+    updateArtworkProxyImage: function() {
+      var _this = this;
+      var dataURL = _this.canvas.toDataURL();
+
+      _this.canvasExport.src = dataURL;
     },
 
   };

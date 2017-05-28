@@ -111,14 +111,14 @@
 
       var archiveUrl = 'http://archive.org/upload/?';
 
-      archiveUrl += 'title=' + outputTitle;
-      archiveUrl += '&description=' + '<p>' + encodeURIComponent(escapedCopy) + '</p><a href="' + data.post_permalink + '">' + data.post_permalink + '</a>';
-      archiveUrl += '&subject=' + tags;
+      archiveUrl += 'title=' + encodeURIComponent(outputTitle);
+      archiveUrl += '&description=' + '<p>' + encodeURIComponent(escapedCopy) + '</p><a href="' + encodeURIComponent(data.post_permalink) + '">' + encodeURIComponent(data.post_permalink) + '</a>';
+      archiveUrl += '&subject=' + encodeURIComponent(tags);
       archiveUrl += '&creator=Novara Media';
       archiveUrl += '&licenseurl=http://creativecommons.org/licenses/by-nc-sa/3.0/';
       archiveUrl += '&language=eng';
 
-      $('#output-archive-org-link').attr('href', encodeURI(archiveUrl));
+      $('#output-archive-org-link').attr('href', archiveUrl);
 
     },
 

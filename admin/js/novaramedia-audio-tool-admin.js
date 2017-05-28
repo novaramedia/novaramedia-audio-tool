@@ -141,6 +141,7 @@
 
       var img = new Image();
 
+      img.crossOrigin = 'Anonymous';
       img.onload = function() {
         var height = img.naturalHeight;
         var width = img.naturalWidth;

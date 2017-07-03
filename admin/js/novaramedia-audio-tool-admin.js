@@ -125,9 +125,11 @@
 
       $('#output-archive-org-link').attr('href', encodeURI(archiveUrl));
 
-      // draw artwork
 
-      _this.drawArtwork(data.post_image);
+      if (data.post_image) {
+        // draw artwork
+        _this.drawArtwork(data.post_image);
+      }
 
     },
 

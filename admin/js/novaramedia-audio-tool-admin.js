@@ -90,7 +90,6 @@
 
       var date = new Date();
 
-      console.log(date);
       var archiveYear = date.getFullYear() + '';
       var archiveDate = archiveYear.substring(2) + _this.addLeadingZero(date.getMonth()) + _this.addLeadingZero(date.getDate());
 

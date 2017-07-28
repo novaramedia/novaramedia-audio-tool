@@ -61,6 +61,10 @@ $recent_posts = get_posts(array(
         <td><span id="output-filename" class="easy-select"></span></td>
       </tr>
       <tr>
+        <th scope="row">Archive filename:</th>
+        <td><span id="output-archive-filename" class="easy-select"></span></td>
+      </tr>
+      <tr>
         <th scope="row">Copy:</th>
         <td><p id="output-copy" class="easy-select"></p></td>
       </tr>

@@ -92,6 +92,13 @@
 
       $('#output-filename').text(outputTitle.replace(/[^a-zA-Z 0-9]+/g,'').replace(/[ ]+/g, '_').toLowerCase());
 
+      var date = new Date();
+
+      var archiveYear = date.getFullYear() + '';
+      var archiveDate = archiveYear.substring(2) + _this.addLeadingZero(date.getMonth()) + _this.addLeadingZero(date.getDate());
+
+      $('#output-archive-filename').text(archiveDate + '_' + outputTitle.replace(/[^a-zA-Z 0-9]+/g,'').replace(/[ ]+/g, '_').toLowerCase());
+
       $('#output-permalink').text(data.post_permalink);
 
       var escapedCopy = $('<p>' + data.post_content + '</p>').text();
@@ -116,15 +123,14 @@
 
       var archiveUrl = 'http://archive.org/upload/?';
 
-      archiveUrl += 'title=' + outputTitle;
-      archiveUrl += '&description=' + '<p>' + encodeURIComponent(escapedCopy) + '</p><a href="' + data.post_permalink + '">' + data.post_permalink + '</a>';
-      archiveUrl += '&subject=' + tags;
+      archiveUrl += 'title=' + encodeURIComponent(outputTitle);
+      archiveUrl += '&description=' + '<p>' + encodeURIComponent(escapedCopy) + '</p><a href="' + encodeURIComponent(data.post_permalink) + '">' + encodeURIComponent(data.post_permalink) + '</a>';
+      archiveUrl += '&subject=' + encodeURIComponent(tags);
       archiveUrl += '&creator=Novara Media';
       archiveUrl += '&licenseurl=http://creativecommons.org/licenses/by-nc-sa/3.0/';
       archiveUrl += '&language=eng';
 
-      $('#output-archive-org-link').attr('href', encodeURI(archiveUrl));
-
+      $('#output-archive-org-link').attr('href', archiveUrl);
 
       if (data.post_image) {
         // draw artwork
@@ -196,6 +202,16 @@
       var dataURL = _this.canvas.toDataURL();
 
       _this.canvasExport.src = dataURL;
+    },
+
+    addLeadingZero: function(number) {
+      number = number + '';
+
+      if (number.length === 1) {
+        number = '0' + number;
+      }
+
+      return number;
     },
 
   };

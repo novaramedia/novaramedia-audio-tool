@@ -2,3 +2,13 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+.output {
+  display: none
+}
+
+#artwork-canvas-export {
+  width: 400px;
+  max-width: 90%;
+  height: auto;
+}

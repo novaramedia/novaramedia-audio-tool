@@ -6,8 +6,8 @@ The purpose of this plugin is to aid in the automation of repetitive tasks invol
 ### Todo
 
 - setup repo ✔
-- create admin view
-- load data into view
-- display data
-- generate image
+- create admin view ✔
+- load data into view ✔
+- display data ✔
+- generate image ✔
 - add MP3 tagger feature

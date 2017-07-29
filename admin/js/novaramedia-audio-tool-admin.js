@@ -217,7 +217,9 @@
   };
 
   $( window ).load(function() {
-    AudioTool.init();
+    if ($('body').hasClass('toplevel_page_novaramedia-audio-tool')) {
+      AudioTool.init();
+    }
   });
 
 })( jQuery );

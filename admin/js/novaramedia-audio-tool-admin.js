@@ -28,8 +28,10 @@
       var _this = this;
 
       if (window.location.protocol === 'https:') {
-        _this.params.ajaxurl = _this.params.ajaxurl.replace(/^http:\/\//i, 'https://');
-        _this.params.pluginurl = _this.params.pluginurl.replace(/^http:\/\//i, 'https://');
+        _this.isSSL = true;
+
+        _this.params.ajaxurl = _this.setHttpsUrl(_this.params.ajaxurl);
+        _this.params.pluginurl = _this.setHttpsUrl(_this.params.pluginurl);
       }
 
       _this.canvas = document.getElementById('artwork-canvas');
@@ -126,7 +128,7 @@
 
       $('#output-tags').text(tags);
 
-      var archiveUrl = 'http://archive.org/upload/?';
+      var archiveUrl = 'https://archive.org/upload/?';
 
       archiveUrl += 'title=' + encodeURIComponent(outputTitle);
       archiveUrl += '&description=' + '<p>' + encodeURIComponent(escapedCopy) + '</p><a href="' + encodeURIComponent(data.post_permalink) + '">' + encodeURIComponent(data.post_permalink) + '</a>';
@@ -137,7 +139,15 @@
 
       $('#output-archive-org-link').attr('href', archiveUrl);
 
+        console.log(data);
+
+
       if (data.post_image) {
+        var imageUrl = data.post_image;
+
+        if (_this.isSSL) {
+          imageUrl = setHttpsUrl(imageUrl);
+        }
         // draw artwork
         _this.drawArtwork(data.post_image);
       }
@@ -217,6 +227,10 @@
       }
 
       return number;
+    },
+
+    setHttpsUrl: function(url) {
+      return url.replace(/^http:\/\//i, 'https://')
     },
 
   };

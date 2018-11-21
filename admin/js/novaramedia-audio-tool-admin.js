@@ -139,9 +139,6 @@
 
       $('#output-archive-org-link').attr('href', archiveUrl);
 
-        console.log(data);
-
-
       if (data.post_image) {
         var imageUrl = data.post_image;
 
@@ -149,7 +146,7 @@
           imageUrl = _this.setHttpsUrl(imageUrl);
         }
         // draw artwork
-        _this.drawArtwork(data.post_image);
+        _this.drawArtwork(imageUrl);
       }
 
     },

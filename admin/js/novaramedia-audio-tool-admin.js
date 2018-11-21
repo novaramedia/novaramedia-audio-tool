@@ -27,6 +27,11 @@
     init: function() {
       var _this = this;
 
+      if (window.location.protocol === 'https:') {
+        _this.params.ajaxurl = _this.params.ajaxurl.replace(/^http:\/\//i, 'https://');
+        _this.params.pluginurl = _this.params.pluginurl.replace(/^http:\/\//i, 'https://');
+      }
+
       _this.canvas = document.getElementById('artwork-canvas');
       _this.canvasExport = document.getElementById('artwork-canvas-export');
       _this.ctx = _this.canvas.getContext('2d');

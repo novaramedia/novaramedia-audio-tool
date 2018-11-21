@@ -146,7 +146,7 @@
         var imageUrl = data.post_image;
 
         if (_this.isSSL) {
-          imageUrl = setHttpsUrl(imageUrl);
+          imageUrl = _this.setHttpsUrl(imageUrl);
         }
         // draw artwork
         _this.drawArtwork(data.post_image);

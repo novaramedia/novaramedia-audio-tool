@@ -14,7 +14,7 @@
 
 $recent_posts = get_posts(array(
   'posts_per_page' => -1,
-  'category_name' => 'audio,tyskysour',
+  'category_name' => 'audio,tyskysour-video',
   'post_status'    => array('draft', 'publish')
 ));
 
